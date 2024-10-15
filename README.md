@@ -54,11 +54,13 @@ zig build-exe helloworld.zig
 ```
 
 ## cleaning your build cache and re-building:
+Resolving issues such as: `error: no module named 'xyz' available within module app
+const xyz = @import("xyz");`.
+
 - Delete the zig-cache directory in your project root.
 - Run `zig build --fetch` to re-fetch dependencies.
 - Then run `zig build` again.
 - Use `zig build` and `zig build run` instead of `build-exe` command. Use the `main.zig` instead of `app.zig`.
-
 
 ## Open current directory by command 
 ```powershell
