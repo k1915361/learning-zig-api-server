@@ -62,7 +62,7 @@ const index_page =
 
 fn index(_: *Env, _: *httpz.Request, res: *httpz.Response) !void {
     res.content_type = .HTML;
-    res.body = *index_page;
+    res.body = index_page;
 }
 
 fn getUser(_: *Env, req: *httpz.Request, res: *httpz.Response) !void {
@@ -150,17 +150,6 @@ const Handler = struct {
         try action(&env, req, res);
 
         std.debug.print("ts={d} us={d} path={s}\n", .{ std.time.timestamp(), start.lap() / 1000, req.url.path });
-    }
-
-    pub fn handle(_: *Handler, _: *httpz.Request, res: *httpz.Response) void {
-        res.body =
-            \\ If defined, the "handle" function is called ealry in httpz' request
-            \\ processing. Routing, middlewares, not found and error handling are all skipped.
-            \\ This is an advanced option and is used by frameworks like JetZig to provide
-            \\ their own flavor and enhancement ontop of httpz.
-            \\ If you define this, the special "dispatch", "notFound" and "uncaughtError"
-            \\ functions have no meaning as far as httpz is concerned.
-        ;
     }
 };
 
