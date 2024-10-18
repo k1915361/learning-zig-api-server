@@ -7,9 +7,9 @@ Learning Zig and API server, for purpose of interacting with a database, uploadi
 Download zig bundle from link:
 https://ziglang.org/download/
 
-Unzip and place it in a directory:
-C:\eugene\zig-windows-x86_64-0.14.0-dev.1913+7b8fc18c6
-E:\env-path\zig-windows-x86_64-0.14.0-dev.1924+bdd3bc056
+Unzip and place it in a directory:  
+`C:\eugene\zig-windows-x86_64-0.14.0-dev.1913+7b8fc18c6`  
+`E:\env-path\zig-windows-x86_64-0.14.0-dev.1924+bdd3bc056`
 
 Add the directory to Path
 For Windows, "Environment Variables" > "User Variables" > "Path" > Add the zip directory
