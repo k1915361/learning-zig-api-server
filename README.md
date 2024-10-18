@@ -7,9 +7,9 @@ Learning Zig and API server, for purpose of interacting with a database, uploadi
 Download zig bundle from link:
 https://ziglang.org/download/
 
-Unzip and place it in a directory:
-C:\eugene\zig-windows-x86_64-0.14.0-dev.1913+7b8fc18c6
-E:\env-path\zig-windows-x86_64-0.14.0-dev.1924+bdd3bc056
+Unzip and place it in a directory:  
+`C:\eugene\zig-windows-x86_64-0.14.0-dev.1913+7b8fc18c6`  
+`E:\env-path\zig-windows-x86_64-0.14.0-dev.1924+bdd3bc056`
 
 Add the directory to Path
 For Windows, "Environment Variables" > "User Variables" > "Path" > Add the zip directory
@@ -103,10 +103,92 @@ API link examples:
 /form_data
 ```
 
-This example uses a different heap allocator, from our `std.heap.page_allocator` to their `std.heap.GeneralPurposeAllocator`. A bit of research is to be done on its purpose and benefit.
+## Running a web server
+
+<https://cookbook.ziglang.cc/04-01-tcp-server.html>
+
+Useful resources of image, video, media files handling (base64), handling multiple data communication (JSON), communicating data (HTTP), Database, and Text Processing (Regex, String Parsing).
+
+5. Web Programming
+5.1. HTTP Get
+5.2. HTTP Post
+
+10. Encoding
+10.1. Deserialize JSON
+10.2. Encode and decode base64
+
+14. Database
+14.1. SQLite
+14.2. Postgres
+14.3. MySQL
+
+15. Text Processing
+15.1. Regex Expressions
+15.2. String Parsing
+
+## Running an example TCP Server
+
+```powershell
+cd E:\learning-zig-api-server-main\src
+zig run tcp_server_example.zig
+
+# Open another powershell terminal
+# ./test-api.ps1 - #1 script
+$socket = New-Object Net.Sockets.TcpClient("127.0.0.1", 8000)
+$stream = $socket.GetStream()
+$writer = New-Object IO.StreamWriter($stream)
+$writer.WriteLine("hello zig")
+$writer.Flush()
+$writer.Close()
+$socket.Close()
+```
+
+## Running a HTTP Media Server
+
+<https://www.pedaldrivenprogramming.com/2024/03/writing-a-http-server-in-zig/>  
+<https://github.com/Fingel/zig-http-server/tree/main>
+
+This example handles html and image formats png, jpg, gif.
+
+`const self_addr = try net.Address.resolveIp("0.0.0.0", 4206);`
+
+Windows and `net.zig`'s function `if_nametoindex` as method `resolve` for struct `Ip6Adress` is not compatible. Try other way to run a HTTP media server.
+
+Some Zig implementations and repositories use bash scripts which is not compatible with Windows.
+
+`net.zig:755 error std.net.if_nametoindex unimplemented for this OS`
+
+---
+
+<https://blog.orhun.dev/zig-bits-04/#building-an-http-client-zap>  
+
+Downgrade Zig version from 0.14 to 0.11
+
+`(allocator,`: `expected type 'net.Server.Connection', found 'mem.Allocator'`
+
+`var server = http.Server.init(allocator, .{ .reuse_address = true });`
+
+---
+
+Another attempt at a HTTP Media Server.
+
+`main_ std_net has no member named StreamServer.zig`
+
+`std.net.StreamServer` `std_net has no member named StreamServer`
+
+Zig's standard net implementation has likely changed.  
+Downgrade the Zig version from 0.14 to older and more stable versions.
 
 ## Open current directory in File Explorer by command
 
 ```powershell
 start .
 ```
+
+## Commonly Used Commands
+
+clear terminal  
+`cls`
+
+clear terminal and run another command  
+`cls; `
