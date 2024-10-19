@@ -1,6 +1,12 @@
 # learning-zig-api-server
 
-Learning Zig and API server, for purpose of interacting with a database, uploading/downloading models, images, videos, database files, and interacting with another web server.
+Learning Zig and API server for purpose of interacting with a database, a web server, uploading and downloading models, images, videos, database files and other data and history record files.
+
+## Environment:
+
+- Zig 0.14.0 - zig-windows-x86_64-0.14.0-dev.1924+bdd3bc056
+- Windows 10 Home. Version 10.0.19045 Build 19045
+- Processor Intel i5-3470 CPU @ 3.20GHz, 3201 Mhz, 4 Cores
 
 ## Setting up zig
 
@@ -23,7 +29,7 @@ For Windows, "Environment Variables" > "User Variables" > "Path" > Add the zip d
 
 ```
 
-## Zig - Run Hello World
+## Run Hello World with Zig
 
 ```powershell
 cd C:\Users\user\Documents\eugene\ku-backend
@@ -34,7 +40,7 @@ zig init
 zig build test
 ```
 
-## zig Basics
+## Zig Main and Function
 
 helloworld.zig
 
@@ -53,10 +59,9 @@ pub fn main() void {
 ```powershell
 zig build-exe helloworld.zig
 ./helloworld
-# Hello, World!
 ```
 
-## cleaning your build cache and re-building
+## Cleaning Build Cache and Re-building
 
 - Delete the zig-cache directory in your project root.
 - Run `zig build --fetch` to re-fetch dependencies.
@@ -103,7 +108,7 @@ API link examples:
 /form_data
 ```
 
-## Running a web server
+## Running a Web Server
 
 <https://cookbook.ziglang.cc/04-01-tcp-server.html>
 
@@ -126,11 +131,10 @@ Useful resources of image, video, media files handling (base64), handling multip
 15.1. Regex Expressions
 15.2. String Parsing
 
-## Running an example TCP Server
+## Running an Example TCP Server
 
 ```powershell
-cd E:\learning-zig-api-server-main\src
-zig run tcp_server_example.zig
+zig run .\src\example\tcp_server_example.zig
 
 # Open another powershell terminal
 # ./test-api.ps1 - #1 script
@@ -141,6 +145,25 @@ $writer.WriteLine("hello zig")
 $writer.Flush()
 $writer.Close()
 $socket.Close()
+```
+
+## Running a Client TCP Server
+
+```powershell
+
+zig run .\src\example\tcp_server_unused_port_example.zig
+
+# See the port number from server terminal and paste it below
+cls; zig run .\src\example\tcp_client_example.zig -- <port_num>
+
+# server output:
+Listening on 60965 
+Connection received! 127.0.0.1:60966 is sending data.
+127.0.0.1:60966 says hello zig, from tcp client.
+
+# client output: 
+Connecting to 127.0.0.1:60965
+Sending 'hello zig, from tcp client.' to peer, total written: 27 bytes
 ```
 
 ## Running a HTTP Media Server
@@ -176,7 +199,13 @@ Another attempt at a HTTP Media Server.
 
 `std.net.StreamServer` `std_net has no member named StreamServer`
 
-Zig's standard net implementation has likely changed.  
+`var listener = try std.net.StreamServer.listen(.{ .address = .{ .ip = std.net.ipv4(127, 0, 0, 1), .port = PORT } });`
+
+<https://ziglang.org/documentation/master/std/#std.net>
+
+Try `Server.accept`, `Stream` or `Address.listen` from `std.ent`.
+
+Zig's standard net implementation has changed.  
 Downgrade the Zig version from 0.14 to older and more stable versions.
 
 ## Open current directory in File Explorer by command
