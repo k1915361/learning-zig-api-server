@@ -2,7 +2,7 @@
 
 Learning Zig and API server for purpose of interacting with a database, a web server, uploading and downloading models, images, videos, database files and other data and history record files.
 
-## Environment:
+## Environment
 
 - Zig 0.14.0 - zig-windows-x86_64-0.14.0-dev.1924+bdd3bc056
 - Windows 10 Home. Version 10.0.19045 Build 19045
@@ -60,6 +60,148 @@ pub fn main() void {
 zig build-exe helloworld.zig
 ./helloworld
 ```
+
+## Testing a Basic GET HTTP Request
+
+This programe requests a web link and gets a simple response. It is useful for doing simple and quick testing and troubleshooting issues on network, server and client.
+
+```powershell
+zig run .\src\example\http-get.zig
+```
+
+GET request:  
+<http://httpbin.org/headers>
+
+Response output:
+
+```powershell
+Name:Date, Value:Sat, 19 Oct 2024 18:47:35 GMT
+Name:Content-Type, Value:application/json
+Name:Content-Length, Value:221
+Name:Connection, Value:keep-alive
+Name:Server, Value:gunicorn/19.9.0
+Name:Access-Control-Allow-Origin, Value:*
+Name:Access-Control-Allow-Credentials, Value:true
+Body:
+{
+  "headers": {
+    "Accept-Encoding": "gzip, deflate",
+    "Host": "httpbin.org",
+    "User-Agent": "zig/0.14.0-dev.1924+bdd3bc056 (std.http)",
+    "X-Amzn-Trace-Id": "Root=1-6713fec7-2e23983272237e4b004bee5e"
+  }
+}
+```
+
+## Testing a Basic POST HTTP Request
+
+Another simple testing tool but with a POST request. 
+
+```powershell
+zig run .\src\example\http-post.zig
+```
+
+GET request:  
+<http://httpbin.org/anything>
+
+Response output:
+
+```powershell
+Body:
+{
+  "args": {},
+  "data": " {\n  \"name\": \"zig-cookbook\",\n  \"author\": \"John\"\n }",
+  "files": {},
+  "form": {},
+  "headers": {
+    "Accept-Encoding": "gzip, deflate",
+    "Content-Length": "50",
+    "Host": "httpbin.org",
+    "User-Agent": "zig/0.14.0-dev.1924+bdd3bc056 (std.http)",
+    "X-Amzn-Trace-Id": "Root=1-6714029e-12a6d3f45018d68b00d89d22"
+  },
+  "json": {
+    "author": "John",
+    "name": "zig-cookbook"
+  },
+  "method": "POST",
+  "origin": "188.211.162.112",
+  "url": "http://httpbin.org/anything"
+}
+```
+
+## Operating System - Processor - Check Number of CPU Cores
+
+```powershell
+zig run .\src\example\count-cpu-core.zig
+```
+
+## OS - External Command
+
+Running external commands is frequently used for interacting with OS and simplifying tasks that commands and scripts are specialised with, e.g. creating and manipulating files, editing OS environment and variables.
+
+Setting up and installing in OS is frequently used via commands.
+
+An issue faced that appear to be a Windows compatibility issue:
+
+```powershell
+zig run .\src\example\external-command.zig
+
+
+error: FileNotFound 
+
+windowsCreateProcessPathExt 
+.NO_SUCH_FILE => return error.FileNotFound, 
+
+spawnWindows 
+return original_err; 
+
+spawn 
+return self.spawnWindows(); 
+
+main (external-command.zig:33)
+try child.spawn();
+```
+
+## Serializing JSON
+
+This example shows how to handle JSON object.
+
+This is used for containing multiple text and media data into one object for server-client communication.
+
+> Also shows how to print an object as formatted string using `any` data type instead of `s` string and `d` numeric type.
+
+1. Deserialize JSON
+2. Change a value
+3. Test a user's ID, verified status, privileges (user, admin)
+4. Remove verified status
+5. Serialise JSON
+
+```powershell
+zig run .\src\example\serialize-json.zig
+```
+
+## Encoding Base64
+
+This example shows how to encode and decode base64.
+
+Encoding converts a media (and any form of) data into a long plain text of binary, then it is sent over network.
+
+```powershell
+zig run .\src\example\encode-base64.zig
+
+# output
+source: hello zig
+expected: aGVsbG8gemln
+encoded:  aGVsbG8gemln
+same: true
+```
+
+## Zig Guide
+
+<https://zig.guide/language-basics/for-loops>
+
+The link is a useful guide for language basics like its syntax, Zig's notable difference to other languages are `_` for unused variables, `|a, b|` variable syntax for for loops, `0..` for incrementing from 0 to end of a for loop, `x += if (a) 1 else 2;`, `defer` to execute a statement while exiting the current block.
 
 ## Cleaning Build Cache and Re-building
 
